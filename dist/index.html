@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BattleShip</title>
+    
+</head>
+<body>
+    <div class="game-container">
+        <h1>Battleship Game</h1>
+
+        <div id="ship-placement-instructions" class="placement-instructions">
+            Place Submarine (3 blocks)
+        </div>
+        
+        <div id="ship-placement-controls" class="button-container">
+            <button id="horizontal-btn" class="orientation-btn selected">Horizontal</button>
+            <button id="vertical-btn" class="orientation-btn">Vertical</button>
+        </div>
+        <div class="game-boards">
+            <div class="board-container">
+                <div class="board-title">Player Board</div>
+                <div id="player-board" class="board"></div>
+            </div>
+            <div class="board-container computer-board-container">
+                <div class="board-title">Computer Board</div>
+                <div id="computer-board" class="board"></div>
+            </div>
+        </div>
+        <button id="start-game-btn" class="start-btn" disabled>Start Game</button>
+    </div>
+    <script src="main.js" defer></script>
+</body>
+</html>
