@@ -23,6 +23,7 @@ document.getElementById('horizontal-btn').addEventListener('click', function(){
      document.getElementById('vertical-btn').classList.remove('selected')
 });
 
+
 document.getElementById('vertical-btn').addEventListener('click', function(){
     currentOrientation = 'vertical';
     this.classList.add('selected');
