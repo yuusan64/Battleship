@@ -1,35 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cabin+Sketch:wght@400;700&family=Carattere&family=Caveat:wght@500;700&family=Dancing+Script&family=Great+Vibes&family=Josefin+Sans:wght@600&family=Luckiest+Guy&family=Micro+5&family=Oswald:wght@300&family=Quicksand:wght@600;700&family=Roboto&family=Roboto+Mono:wght@500&family=Shadows+Into+Light&display=swap');
+
+h1{
+    margin: 0;
+    font-family: "Micro 5", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 5em;
+
+}
+
 body, html {
     height: 100%;
-    width: 100%;
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background-color: #F0F8FF; /* A lighter shade for a fresher look */
+    background: black;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    color: white; 
 }
 
 .game-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 30px;
-    background-color: #FFFFFF;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    justify-content: start;
+    min-height: 80vh;
+    padding-top: 20px;
+    gap: 1em;
 }
 .computer-board-container {
-    display: none;
     opacity: 0;
     transition: opacity 0.5s ease;
 }
 
-.game-started .game-boards {
-    flex-direction: row; /* Side by side when the game starts */
+.game-started .placement-instructions,
+.game-started #ship-placement-controls{
+  display: none;
+}
+
+.game-started{
+    gap: 3em;
+}
+
+.game-started .game-boards{
+    display: flex;
+    flex-direction: row;
     justify-content: center;
-    opacity: 1;
+}
+
+.game-started .game-boards .computer-board-container{
+    display: flex;
 }
 
 .game-boards {
@@ -43,44 +65,59 @@ body, html {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin: 10px;
 }
 
 .board-title {
-    font-size: 26px;
-    color: #2C3E50; /* A darker shade for better contrast */
-    font-weight: bold; /* Make it bold */
+    font-size: 3em;
+    color: #f0f0f0;
+    font-weight: bold;
+    font-family: "Micro 5", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.computer-board-container .board-title{
+    display: none;
+}
+
+.game-started .computer-board-container .board-title{
+    display: block;
 }
 
 .board {
     display: grid;
-    grid-gap: 2px; /* Add space between cells */
-    background-color: #B0C4DE; /* Change board background */
+    grid-gap: 4px; 
+    padding: 10px; 
+    background-color: #0a2a42; 
+    border-radius: 10px; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .cell {
-    width: 35px;
+    width: 35px; /* Adjust size based on your preference */
     height: 35px;
-    border: 2px solid #FFFFFF; /* Make cells more defined */
-    position: relative;
-    background-color: #E6E6FA; /* Lighter cell background */
-    transition: background-color 0.3s; /* Smooth background color transition */
+    background-color: #1b3b5f; /* Darker cell color */
+    border-radius: 5px; /* Rounded cell corners */
+    transition: background-color 0.3s; 
 }
 
 .cell:hover {
-    background-color: #D3D3D3; /* Change hover state for better visibility */
+    background-color: #325a7f;
     cursor: pointer;
 }
 
 .cell.ship {
-    background-color: #ADD8E6; /* Slightly darker blue for ship cells to stand out */
+    background-color: #26738c;
 }
 
 .cell.hit {
-    background-color: #FF6347; /* Brighter red for hit cells */
+    background-color: #ff3e3e; 
+    box-shadow: inset 0 0 10px #ff0000;
 }
 
 .cell.miss {
-    background-color: #A9A9A9; /* Darker grey for missed cells */
+    background-color:#4b5466;
 }
 
 .button-container {
@@ -88,41 +125,47 @@ body, html {
     gap: 15px;
 }
 
-.orientation-btn {
+#horizontal-btn, #vertical-btn {
     padding: 12px 25px;
-    font-size: 18px; /* Larger font for better readability */
+    font-size: 18px; 
     cursor: pointer;
-    border: 2px solid transparent; /* Add border to button */
-    border-radius: 8px; /* Rounded corners for buttons */
-    background-color: #4CAF50; /* A more vibrant color for the button */
+    border: none;
+    border-radius: 8px; 
+    background-color: #FF9800;
     color: white;
-    transition: background-color 0.3s, border-color 0.3s; /* Smooth transition for hover effects */
+    transition: background-color 0.3s, box-shadow 0.3s; 
 }
 
-.orientation-btn:hover, .orientation-btn.selected {
-    background-color: #388E3C; /* Darker shade on hover/selected */
-    border-color: #2E7D32; /* Darker border color for contrast */
+#vertical-btn:hover, #vertical-btn.selected, #start-game-btn:hover, #horizontal-btn:hover, #horizontal-btn.selected  {
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.7); 
+    background-color: #51ab55;
 }
+
 
 #start-game-btn {
-    padding: 10px 30px;
-    font-size: 18px;
-    color: white;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
+    padding: 15px 30px;
+    font-size: 20px; 
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    border: none;
+    border-radius: 10px; 
+    background-color: #4CAF50; 
+    color: white;
+    transition: background-color 0.3s, box-shadow 0.3s; 
 }
 
-#start-game-btn:hover {
-    background-color: #0056b3;
-}
 
 .placement-instructions {
-    margin: 25px 0;
     text-align: center;
-    font-size: 20px; /* Larger instruction text */
-    color: #2C3E50; /* Match the board title color */
-    font-weight: 500; /* Medium font weight for clarity */
+    font-size: 2.5em;
+    color: #24ea3b;
+    font-weight: 500;
+    font-family: "Micro 5", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+.no-click {
+    pointer-events: none;
+    opacity: 0.6; 
 }

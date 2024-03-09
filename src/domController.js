@@ -56,9 +56,10 @@ export const renderBoard = (gameBoard, elementId) => {
 };
 
 
-export const setAttackListener = (player, onAttack)=>{
+export const setAttackListener = (player, onAttack, isGameOver)=>{
     const boardElement = document.getElementById('computer-board');
     boardElement.addEventListener('click', event=>{
+        if (isGameOver) return;
         const cell = event.target;
 
         console.log(cell);
@@ -82,6 +83,10 @@ export const initializeShipPlacement = (gameBoard, elementId, shipSizes, getOrie
     let currentShipIndex = 0; // Initialize ship index
 
     boardElement.addEventListener('click', event => {
+
+        if (!event.target.classList.contains('cell')) {
+            return; // If not a cell, ignore the click
+        }
         const orientation = getOrientation();
         const x = parseInt(event.target.style.gridColumnStart, 10) - 1;
         const y = parseInt(event.target.style.gridRowStart, 10) - 1;

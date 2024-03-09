@@ -17,6 +17,8 @@ class Player {
     // Check if the move is legal
     isLegalMove(x, y) {
         const key = this.createCoordKey(x, y);
+        
+
         return !this.pastMoves.has(key);
     }
 
@@ -30,12 +32,19 @@ makeMove(x, y, targetBoard) {
     if (this.isComputer) {
         // Check if there are any potential targets from previous hits
         if (this.potentialTargets.length > 0) {
-            ({ x, y } = this.potentialTargets.shift()); // Take the next potential target
+            // Take the next potential target
+            ({ x, y } = this.potentialTargets.shift());
+            console.log("potential targets" + this.potentialTargets);
+            console.log(x);
+            console.log(y); 
         } else {
             // No potential targets, so choose randomly
             do {
                 x = Math.floor(Math.random() * this.gameBoard.size);
                 y = Math.floor(Math.random() * this.gameBoard.size);
+
+                console.log(x);
+                console.log(y);
             } while (!this.isLegalMove(x, y));
         }
     } else {
@@ -64,8 +73,14 @@ updatePotentialTargets(x, y) {
         const newX = x + dx;
         const newY = y + dy;
         if (newX >= 0 && newX < this.gameBoard.size && newY >= 0 && newY < this.gameBoard.size) {
-            if (!this.pastMoves.has(this.createCoordKey(newX, newY))) {
+            const newKey = this.createCoordKey(newX, newY);
+            const isAlreadyATarget = this.potentialTargets.some(target => this.createCoordKey(target.x, target.y) === newKey);
+            if (!this.pastMoves.has(this.createCoordKey(newX, newY)) && !isAlreadyATarget) {
+                console.log("past moves: " + Array.from(this.pastMoves).join(", "))
+                console.log(!this.pastMoves.has(this.createCoordKey(newX, newY)));
+                console.log("X: "+newX + "Y: "+ newY);
                 this.potentialTargets.push({ x: newX, y: newY });
+                console.log("Potential targets remaining: ", [...this.potentialTargets]);
             }
         }
     });

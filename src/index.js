@@ -3,6 +3,7 @@ import Player from './player';
 import { renderBoard, setAttackListener, initializeShipPlacement } from './domController';
 import './style.css';
 
+let isGameOver = false;
 
 // Initialize game boards and players
 const humanBoard = new GameBoard();
@@ -38,7 +39,7 @@ document.getElementById('start-game-btn').addEventListener('click', function() {
         // Game starting logic
         renderBoard(humanBoard, 'player-board');
         renderBoard(computerBoard, 'computer-board');
-        setAttackListener(humanPlayer, onPlayerAttack);
+        setAttackListener(humanPlayer, onPlayerAttack, isGameOver);
         // Hide ship placement UI or indicate game start
         this.textContent = 'Restart'; // Change the button text to 'Reset Game'
         document.querySelector('.game-container').classList.add('game-started');
@@ -63,13 +64,12 @@ const onPlayerAttack = (x,y) =>{
 
   renderBoard(computerBoard, 'computer-board');
 
-  if (attackResult.hit) console.log("Hit made at (" + x + ", " + y + ")");
-  if (attackResult.sunk) console.log("A ship was sunk!");
-  if (attackResult.miss) console.log("Miss at (" + x + ", " + y + ")");
 
     if(computerBoard.areAllShipsSunk()){
         alert('Player wins!');
-
+        document.getElementById('computer-board').classList.add('no-click');
+        isGameOver = true; 
+        return;
         //game reset
     } else{
         //computer's turn
@@ -80,7 +80,9 @@ const onPlayerAttack = (x,y) =>{
 
           if (humanBoard.areAllShipsSunk()) {
                 alert('Computer wins!');
-                //implement game reset or end logic here
+                document.getElementById('computer-board').classList.add('no-click');
+                isGameOver = true; 
+                return;
             }
         }, 1000);
     }
@@ -120,3 +122,4 @@ initializeShipPlacement(humanBoard, 'player-board', shipSizes, () => currentOrie
     document.getElementById('start-game-btn').disabled = false;
     document.getElementById('ship-placement-controls').style.display = 'none';
 });
+
