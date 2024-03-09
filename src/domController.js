@@ -61,8 +61,6 @@ export const setAttackListener = (player, onAttack, isGameOver)=>{
     boardElement.addEventListener('click', event=>{
         if (isGameOver) return;
         const cell = event.target;
-
-        console.log(cell);
         //Ignore if not clicking on a cell
         if(!cell.classList.contains('cell')) return;
 
@@ -80,12 +78,13 @@ export const setAttackListener = (player, onAttack, isGameOver)=>{
 
 export const initializeShipPlacement = (gameBoard, elementId, shipSizes, getOrientation, updateInstructions) => {
     const boardElement = document.getElementById(elementId);
-    let currentShipIndex = 0; // Initialize ship index
+    let currentShipIndex = 0; 
 
     boardElement.addEventListener('click', event => {
-
+        
+         // If not a cell, ignore the click
         if (!event.target.classList.contains('cell')) {
-            return; // If not a cell, ignore the click
+            return;
         }
         const orientation = getOrientation();
         const x = parseInt(event.target.style.gridColumnStart, 10) - 1;
@@ -94,12 +93,15 @@ export const initializeShipPlacement = (gameBoard, elementId, shipSizes, getOrie
         if (currentShipIndex < shipSizes.length && gameBoard.canPlaceShip(shipSizes[currentShipIndex], x, y, orientation)) {
             gameBoard.placeShip(shipSizes[currentShipIndex], x, y, orientation);
             renderBoard(gameBoard, elementId);
-            currentShipIndex++; // Increment the index for the next ship
-            updateInstructions(currentShipIndex); // Update the ship placement instructions
+            // Increment the index for the next ship
+            currentShipIndex++; 
+            // Update the ship placement instructions
+            updateInstructions(currentShipIndex); 
             
             if (currentShipIndex === shipSizes.length) {
-                document.getElementById('start-game-btn').disabled = false; // Enable the Start Game button
-                document.getElementById('ship-placement-controls').style.display = 'none'; // Hide orientation buttons
+                // Enable start game button & hide orientation buttons
+                document.getElementById('start-game-btn').disabled = false; 
+                document.getElementById('ship-placement-controls').style.display = 'none'; 
             }
         }
     });
